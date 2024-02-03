@@ -6,9 +6,13 @@
     width: 100vw;
     height: 100vh;
     display: flex;
-    background-color: #222224;
+    background-image: url("https://images.chesscomfiles.com/chess-themes/backgrounds/originals/large/walnut.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
     justify-content: center;
     align-items: center;
+    
 }
 .board{
     width: 689px;
@@ -16,6 +20,7 @@
     display: grid;
     grid-template-columns: repeat(8, 86px);
     grid-template-rows: repeat(8, 86px);
+    box-shadow: 10px 10px 5px black;
   
 }
 .cell{
@@ -35,6 +40,9 @@
     background-repeat: no-repeat;
     background-size: 60%;
     background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .figure:hover{
     cursor: pointer;
@@ -43,4 +51,9 @@
     width: 85px;
     height: 85px;
     
+}
+.danger{
+    width: 85px;
+    height: 85px;
+
 }
