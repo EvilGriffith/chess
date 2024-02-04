@@ -1,3 +1,5 @@
+import { Board } from "./Board"
+
 export class Figure {
     color: string
     name: string
@@ -61,12 +63,15 @@ export class Figure {
                 for (let sum = 1; sum < 2; sum++) {
                     let sumY = y + sum
                     let stop = false
+                    const b = new Board()
+                    const check = b.isHorisantalyEmpty(x,sumY,board,color)
                     for (let i = 0; i < filtredboard.length; i++) {
-                        if (filtredboard[i].figure.x == x && filtredboard[i].figure.y == sumY) {
+                        if (filtredboard[i].figure.x == x && filtredboard[i].figure.y == sumY || !check) {
+                            console.log(check)
                             stop = true
                         }
                     }
-                    if (sumY > 8) {
+                    if (sumY > 8 || check == false) {
                         break
                     }
                     else {

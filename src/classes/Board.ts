@@ -84,4 +84,31 @@ export class Board{
         }
         return board
     }
+    isHorisantalyEmpty(x: number,y:number,board: any,color: string){
+        const array = []
+        for(let i = 0; i < board.length;i++){
+            if(board[i].numberX == x && board[i].numberY == y){
+                for(let j = 0; j < board.length;j ++){
+                    if(board[i].numberY == y){
+                        array.push(board[i])
+
+                    }
+                }
+                for(let k = 0; k < array.length;k++){
+                    if((array[k].figure?.name == "Q" || array[k].figure?.name == "R") && array[k].figure?.color !== color){
+                        return false
+                    }
+                    else{
+                        return true
+                    }
+                }
+            }
+        }
+    }
+    isVerticalEmpty(){
+
+    }
+    isDiagonalEmpty(){
+
+    }
 }

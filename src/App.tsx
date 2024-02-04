@@ -3,26 +3,27 @@ import { useState, useEffect } from "react"
 import "./css/App.css"
 import { Figure } from "./classes/Figure"
 import { Game } from "./classes/Game"
+import { addDoc, collection, getDocs } from "firebase/firestore"
+import { db } from "./main"
 
 
 
 function App() {
-  const [board, setboard] = useState<any>([{}])
+  const [board, setboard] = useState<any>()
   const [figureselect, setfigureselect] = useState<any>(null)
   const [mmove, setmmove] = useState<number[][]>([[]])
   const [attacks, setattacks] = useState<number[][]>([[]])
   const [game, setgame] = useState<any>({})
+  const [currentplayer,setcurrentplayer] = useState<string>()
+  
   useEffect(() => {
-    const board = new Board()
-    let gameboard = board.createClassicBoard()
-    gameboard = gameboard.reverse()
-    setboard(gameboard)
-    const game = new Game("white", false, false)
-    setgame(game)
-
-
+    const b = new Board()
+    setboard(b.createClassicBoard())
+    const g = new Game("white",false,false,"white","black",board)
+    setgame(g)
 
   }, [])
+  
   const changecolor = () => {
     if (game.colormove == "white") {
       setfigureselect(null)
@@ -46,63 +47,68 @@ function App() {
     }
     else {
 
-      const attacks = figureselect.attackFigure(figureselect.color, figureselect.name, figureselect.x, figureselect.y, board)
-      console.log(attacks)
-      for (let i = 0; i < attacks.length; i++) {
-        for (let k = 0; k < mmove.length; k++) {
-          if (figure.name !== "P") {
-            if ((attacks[i][0] == x && attacks[i][1] == y) && (mmove[k][0] == x && mmove[k][1] == y)) {
-              const figure = figureselect
-              const copyboard = board
-              for (let j = 0; j < copyboard.length; j++) {
-                if (copyboard[j].numberX == figureselect.x && copyboard[j].numberY == figureselect.y) {
-                  copyboard[j].figure = null
+      if (figureselect) {
+        const attacks = figureselect.attackFigure(figureselect.color, figureselect.name, figureselect.x, figureselect.y, board)
+        for (let i = 0; i < attacks.length; i++) {
+          for (let k = 0; k < mmove.length; k++) {
+            if (figureselect.name !== "P") {
+              if ((attacks[i][0] == x && attacks[i][1] == y) && (mmove[k][0] == x && mmove[k][1] == y)) {
+                const figure = figureselect
+                const copyboard = board
+                for (let j = 0; j < copyboard.length; j++) {
+                  if (copyboard[j].numberX == figureselect.x && copyboard[j].numberY == figureselect.y) {
+                    copyboard[j].figure = null
+                  }
                 }
-              }
-              for (let j = 0; j < copyboard.length; j++) {
-                if (copyboard[j].numberX == x && copyboard[j].numberY == y) {
-                  figure.x = x
-                  figure.y = y
-                  copyboard[j].figure = figure
-                  setboard(copyboard)
-                  setmmove([[]])
-                  const copygame = game
-                  copygame.colormove = changecolor()
-                  setgame(copygame)
+                for (let j = 0; j < copyboard.length; j++) {
+                  if (copyboard[j].numberX == x && copyboard[j].numberY == y) {
+                    figure.x = x
+                    figure.y = y
+                    copyboard[j].figure = figure
+                    setboard(copyboard)
+                    setmmove([[]])
+                    const copygame = game
+                    copygame.colormove = changecolor()
+                    setgame(copygame)
+                    newmove()
+                  }
                 }
               }
             }
-          }
-          else { 
-            if(attacks[i][0] == x && attacks[i][1] == y){
-              const figure = figureselect
-              const copyboard = board
-              for (let j = 0; j < copyboard.length; j++) {
-                if (copyboard[j].numberX == figureselect.x && copyboard[j].numberY == figureselect.y) {
-                  copyboard[j].figure = null
+            else {
+              if (attacks[i][0] == x && attacks[i][1] == y) {
+                const figure = figureselect
+                const copyboard = board
+                for (let j = 0; j < copyboard.length; j++) {
+                  if (copyboard[j].numberX == figureselect.x && copyboard[j].numberY == figureselect.y) {
+                    copyboard[j].figure = null
+                  }
                 }
-              }
-              for (let j = 0; j < copyboard.length; j++) {
-                if (copyboard[j].numberX == x && copyboard[j].numberY == y) {
-                  figure.x = x
-                  figure.y = y
-                  copyboard[j].figure = figure
-                  setboard(copyboard)
-                  setmmove([[]])
-                  const copygame = game
-                  copygame.colormove = changecolor()
-                  setgame(copygame)
+                for (let j = 0; j < copyboard.length; j++) {
+                  if (copyboard[j].numberX == x && copyboard[j].numberY == y) {
+                    figure.x = x
+                    figure.y = y
+                    copyboard[j].figure = figure
+                    setboard(copyboard)
+                    setmmove([[]])
+                    const copygame = game
+                    copygame.colormove = changecolor()
+                    setgame(copygame)
+                    newmove()
+                  }
                 }
               }
             }
           }
         }
+        setfigureselect(null)
       }
-      setfigureselect(null)
     }
 
   }
-
+  const newmove = () => {
+    setfigureselect(null)
+  }
   const check = (x: number, y: number) => {
     for (let i = 0; i < mmove.length; i++) {
       if (mmove[i][0] === x && mmove[i][1] === y) {
@@ -115,8 +121,8 @@ function App() {
 
     return false
   }
-  const attackcheck = (x: number, y: number, name: string) => {
-    if (name !== "P") {
+  const attackcheck = (x: number, y: number) => {
+    if (figureselect?.name !== "P") {
       for (let i = 0; i < attacks.length; i++) {
         if (attacks[i][0] === x && attacks[i][1] === y) {
           for (let j = 0; j < mmove.length; j++) {
@@ -156,10 +162,10 @@ function App() {
             copyboard[j].figure = figure
             setboard(copyboard)
             setmmove([[]])
-            setfigureselect(null)
             const copygame = game
             copygame.colormove = changecolor()
             setgame(copygame)
+            newmove()
           }
         }
 
@@ -178,7 +184,7 @@ function App() {
               ?
               <div className="cell" style={(numberX + numberY) % 2 == 0 ? { backgroundColor: "#BA9E7B" } : { backgroundColor: "#664832" }} key={index}>
                 <div className="figure" style={{ backgroundImage: `url(${figure.url})` }} onClick={() => { move(figure, numberX, numberY, figure.color) }}>
-                  <div className="danger" style={attackcheck(numberX, numberY, figure.name) ? { backgroundImage: `url(../src/assets/figures/danger.png)`, cursor: 'pointer' } : {}} onClick={() => { move(figure, numberX, numberY, figure.color) }} />
+                  <div className="danger" style={attackcheck(numberX, numberY) ? { backgroundImage: `url(../src/assets/figures/danger.png)`, cursor: 'pointer' } : {}} onClick={() => { move(figure, numberX, numberY, figure.color) }} />
                 </div>
               </div>
               :
