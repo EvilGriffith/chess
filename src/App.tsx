@@ -3,8 +3,7 @@ import { useState, useEffect } from "react"
 import "./css/App.css"
 import { Figure } from "./classes/Figure"
 import { Game } from "./classes/Game"
-import { addDoc, collection, getDocs } from "firebase/firestore"
-import { db } from "./main"
+
 
 
 
@@ -14,7 +13,7 @@ function App() {
   const [mmove, setmmove] = useState<number[][]>([[]])
   const [attacks, setattacks] = useState<number[][]>([[]])
   const [game, setgame] = useState<any>({})
-  const [currentplayer,setcurrentplayer] = useState<string>()
+ 
   
   useEffect(() => {
     const b = new Board()
