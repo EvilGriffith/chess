@@ -57,3 +57,31 @@
     height: 85px;
 
 }
+@media screen and (max-width: 767px) {
+    .board{
+        width: 360px;
+        height: 360px;
+        display: grid;
+        grid-template-columns: repeat(8, 45px);
+        grid-template-rows: repeat(8, 45px);
+        box-shadow: 10px 10px 5px black;
+    }
+    .cell{
+        width: 45px;
+        height: 45px;
+    }
+    .move{
+        width: 45px;
+        height: 45px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 80%;
+    }
+    .danger{
+        width: 45px;
+        height: 45px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 80%;
+    }
+}

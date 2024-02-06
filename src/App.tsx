@@ -3,6 +3,8 @@ import { useState, useEffect } from "react"
 import "./css/App.css"
 import { Figure } from "./classes/Figure"
 import { Game } from "./classes/Game"
+import { addDoc, collection, doc, getDocs, onSnapshot, query, updateDoc } from "firebase/firestore"
+import { db } from "./main"
 
 
 
@@ -13,16 +15,64 @@ function App() {
   const [mmove, setmmove] = useState<number[][]>([[]])
   const [attacks, setattacks] = useState<number[][]>([[]])
   const [game, setgame] = useState<any>({})
- 
-  
-  useEffect(() => {
-    const b = new Board()
-    setboard(b.createClassicBoard())
-    const g = new Game("white",false,false,"white","black",board)
-    setgame(g)
+  const [currentplayer, setcurrentplayer] = useState<string>("")
+  const [docid, setdocid] = useState<string>("white")
+  const [chek, setcheck] = useState(0)
+  const col = collection(db, "game")
 
+  const fetchgame = async () => {
+    const querygames = await getDocs(col)
+    const games = querygames.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+    if (games.length <= 1) {
+      setcurrentplayer("white")
+      const b = new Board()
+      const bb = b.createClassicBoard()
+      const newgame = {
+        colormove: "white",
+        gamestopped: false,
+        player1: "white",
+        player2: null,
+        board: bb
+      }
+      await addDoc(col, newgame)
+      setcheck(1)
+
+    }
+    else {
+      setcurrentplayer("black")
+      setcheck(1)
+
+    }
+  }
+  console.log(currentplayer)
+  const loadgame = async () => {
+    const querygames: any = query(col)
+    onSnapshot(querygames, (sn: any) => {
+      const games: any = []
+      sn.forEach((doc: any) => {
+        games.push({ ...doc.data(), id: doc.id })
+        if (currentplayer == "white") {
+          setdocid(games[0].id)
+          setgame(games[0])
+          setboard(games[0].board.reverse())
+        }
+        else {
+          setdocid(games[0].id)
+          setgame(games[0])
+          setboard(games[0].board)
+        }
+      })
+
+    })
+  }
+
+  useEffect(() => {
+    if (chek == 0) {
+      fetchgame()
+    }
+    loadgame()
   }, [])
-  
+
   const changecolor = () => {
     if (game.colormove == "white") {
       setfigureselect(null)
@@ -34,11 +84,12 @@ function App() {
     }
   }
 
-  const move = (figure: Figure, x: number, y: number, color: string) => {
-    if (game.colormove == color) {
+  const move = async(name: string, figure: any, x: number, y: number, color: string) => {
+    if (game.colormove == color && currentplayer == color) {
       setfigureselect(figure)
-      const moves = figure.moveFigure(figure.color, figure.name, x, y, board)
-      const attack = figure.attackFigure(figure.color, figure.name, figure.x, figure.y, board)
+      const f = new Figure(color, name, x, y, "")
+      const moves = f.moveFigure(f.color, f.name, x, y, board)
+      const attack = f.attackFigure(f.color, f.name, f.x, f.y, board)
       setmmove(moves)
 
       setattacks(attack)
@@ -47,7 +98,8 @@ function App() {
     else {
 
       if (figureselect) {
-        const attacks = figureselect.attackFigure(figureselect.color, figureselect.name, figureselect.x, figureselect.y, board)
+        const f = new Figure(figureselect.color, figureselect.name, figureselect.x, figureselect.y, figureselect.url)
+        const attacks = f.attackFigure(figureselect.color, figureselect.name, figureselect.x, figureselect.y, board)
         for (let i = 0; i < attacks.length; i++) {
           for (let k = 0; k < mmove.length; k++) {
             if (figureselect.name !== "P") {
@@ -64,11 +116,18 @@ function App() {
                     figure.x = x
                     figure.y = y
                     copyboard[j].figure = figure
-                    setboard(copyboard)
                     setmmove([[]])
                     const copygame = game
-                    copygame.colormove = changecolor()
-                    setgame(copygame)
+                    const docref = doc(db, 'game', docid)
+                    if (currentplayer == "white") {
+                      copygame.board = copyboard
+                      copygame.colormove = "black"
+                    }
+                    else {
+                      copygame.board = copyboard
+                      copygame.colormove = "white"
+                    }
+                    await updateDoc(docref, copygame)
                     newmove()
                   }
                 }
@@ -144,7 +203,7 @@ function App() {
     }
     return false
   }
-  const stayfigure = (x: number, y: number) => {
+  const stayfigure = async (x: number, y: number) => {
     for (let i = 0; i < mmove.length; i++) {
       if (mmove[i][0] == x && mmove[i][1] == y) {
         const figure = figureselect
@@ -159,11 +218,19 @@ function App() {
             figure.x = x
             figure.y = y
             copyboard[j].figure = figure
-            setboard(copyboard)
             setmmove([[]])
             const copygame = game
-            copygame.colormove = changecolor()
-            setgame(copygame)
+            const docref = doc(db, 'game', docid)
+
+            if (currentplayer == "white") {
+              copygame.board = copyboard
+              copygame.colormove = "black"
+            }
+            else {
+              copygame.board = copyboard
+              copygame.colormove = "white"
+            }
+            await updateDoc(docref, copygame)
             newmove()
           }
         }
@@ -182,8 +249,8 @@ function App() {
             figure
               ?
               <div className="cell" style={(numberX + numberY) % 2 == 0 ? { backgroundColor: "#BA9E7B" } : { backgroundColor: "#664832" }} key={index}>
-                <div className="figure" style={{ backgroundImage: `url(${figure.url})` }} onClick={() => { move(figure, numberX, numberY, figure.color) }}>
-                  <div className="danger" style={attackcheck(numberX, numberY) ? { backgroundImage: `url(../src/assets/figures/danger.png)`, cursor: 'pointer' } : {}} onClick={() => { move(figure, numberX, numberY, figure.color) }} />
+                <div className="figure" style={{ backgroundImage: `url(${figure.url})` }} onClick={() => { move(figure.name, figure, numberX, numberY, figure.color) }}>
+                  <div className="danger" style={attackcheck(numberX, numberY) ? { backgroundImage: `url(../src/assets/figures/danger.png)`, cursor: 'pointer' } : {}} onClick={() => { move(figure.name, figure, numberX, numberY, figure.color) }} />
                 </div>
               </div>
               :

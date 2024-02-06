@@ -1,5 +1,5 @@
 import { Cell } from "./Cell";
-import { Figure } from "./Figure";
+
 
 export class Board{
     createBoard(){
@@ -17,67 +17,191 @@ export class Board{
         for(let y = 1;y < 9;y++){
             for(let x = 1; x < 9;x++){
                 if((x == 1 && y == 1 || (x == 8 && y == 1))){
-                    const whiterock = new Figure("white","R",x,y,false,false,"../src/assets/figures/rook.png")
-                    const cell = new Cell(whiterock,x,y)
+                    const whiterock = {
+                        color: "white",
+                        name: "R",
+                        x: x,
+                        y: y,
+                        url: '../src/assets/figures/rook.png'
+                    }
+                    const cell = {
+                        figure: whiterock,
+                        numberX: x,
+                        numberY: y
+                    }
                     board.push(cell)
                 }
                 else if((x == 2 && y == 1) || (x == 7 && y == 1)){
-                    const whiteknight = new Figure("white","kN",x,y,false,false,"../src/assets/figures/knight.png")
-                    const cell = new Cell(whiteknight,x,y)
+                    const whiteknight = {
+                        color: "white",
+                        name: "kN",
+                        x: x,
+                        y: y,
+                        url: '../src/assets/figures/knight.png'
+                    }
+                    const cell = {
+                        figure: whiteknight,
+                        numberX: x,
+                        numberY: y
+                    }
                     board.push(cell)
                 }
                 else if((x == 3 && y == 1) || (x == 6 && y == 1)){
-                    const whitebishop = new Figure("white","B",x,y,false,false,"../src/assets/figures/bishop.png")
-                    const cell = new Cell(whitebishop,x,y)
+                    const whitebishop = {
+                        color: "white",
+                        name: "B",
+                        x: x,
+                        y: y,
+                        url: '../src/assets/figures/bishop.png'
+                    }
+                    const cell = {
+                        figure: whitebishop ,
+                        numberX: x,
+                        numberY: y
+                    }
                     board.push(cell)
                 }
                 else if(x == 5 && y == 1){
-                    const whitequeen = new Figure("white","Q",x,y,false,false,"../src/assets/figures/queen.png")
-                    const cell = new Cell(whitequeen,x,y)
+                    const whitequeen = {
+                        color: "white",
+                        name: "Q",
+                        x: x,
+                        y: y,
+                        url: '../src/assets/figures/queen.png'
+                    }
+                    const cell = {
+                        figure: whitequeen,
+                        numberX: x,
+                        numberY: y
+                    }
                     board.push(cell)
                 }
                 else if(x == 4 && y == 1){
-                    const whiteking = new Figure("white","K",x,y,false,false,"../src/assets/figures/king.png")
-                    const cell = new Cell(whiteking,x,y)
+                    const whiteking = {
+                        color: "white",
+                        name: "K",
+                        x: x,
+                        y: y,
+                        url: '../src/assets/figures/king.png'
+                    }
+                    const cell = {
+                        figure: whiteking,
+                        numberX: x,
+                        numberY: y
+                    }
                     board.push(cell)
                 }
                 else if(y == 2){
-                    const whitepawn = new Figure("white","P",x,y,false,false,"../src/assets/figures/pawn.png")
-                    const cell = new Cell(whitepawn,x,y)
+                    const whitepawn = {
+                        color: "white",
+                        name: "P",
+                        x: x,
+                        y: y,
+                        url: '../src/assets/figures/pawn.png'
+                    }
+                    const cell = {
+                        figure: whitepawn,
+                        numberX: x,
+                        numberY: y
+                    }
                     board.push(cell)
                 }
                 else if(y == 7){
-                    const blackpawn = new Figure("black","P",x,y,false,false,"../src/assets/figures/pawn1.png")
-                    const cell = new Cell(blackpawn,x,y)
+                    const blackpawn = {
+                        color: "black",
+                        name: "P",
+                        x: x,
+                        y: y,
+                        url: '../src/assets/figures/pawn1.png'
+                    }
+                    const cell = {
+                        figure: blackpawn,
+                        numberX: x,
+                        numberY: y
+                    }
                     board.push(cell)
                 }
                 else if((x == 1 && y == 8 || (x == 8 && y == 8))){
-                    const blackrock = new Figure("black","R",x,y,false,false,"../src/assets/figures/rook1.png")
-                    const cell = new Cell(blackrock,x,y)
+                    const blackrock = {
+                        color: "black",
+                        name: "R",
+                        x: x,
+                        y: y,
+                        url: '../src/assets/figures/rook1.png'
+                    }
+                    const cell = {
+                        figure: blackrock,
+                        numberX: x,
+                        numberY: y
+                    }
                     board.push(cell)
                 }
                 else if((x == 2 && y == 8 || (x == 7 && y == 8))){
-                    const blackknight = new Figure("black","kN",x,y,false,false,"../src/assets/figures/knight1.png")
-                    const cell = new Cell(blackknight,x,y)
+                    const blackknight = {
+                        color: "black",
+                        name: "kN",
+                        x: x,
+                        y: y,
+                        url: '../src/assets/figures/knight1.png'
+                    }
+                    const cell = {
+                        figure: blackknight,
+                        numberX: x,
+                        numberY: y
+                    }
                     board.push(cell)
                 }
                 else if((x == 3 && y == 8 || (x == 6 && y == 8))){
-                    const blackbishop = new Figure("black","B",x,y,false,false,"../src/assets/figures/bishop1.png")
-                    const cell = new Cell(blackbishop,x,y)
+                    const blackbishop = {
+                        color: "black",
+                        name: "B",
+                        x: x,
+                        y: y,
+                        url: '../src/assets/figures/bishop1.png'
+                    }
+                    const cell = {
+                        figure: blackbishop,
+                        numberX: x,
+                        numberY: y
+                    }
                     board.push(cell)
                 }
                 else if(x == 5 && y == 8){
-                    const blackqueen = new Figure("black","Q",x,y,false,false,"../src/assets/figures/queen1.png")
-                    const cell = new Cell(blackqueen,x,y)
+                    const blackqueen = {
+                        color: "black",
+                        name: "Q",
+                        x: x,
+                        y: y,
+                        url: '../src/assets/figures/queen1.png'
+                    }
+                    const cell = {
+                        figure: blackqueen,
+                        numberX: x,
+                        numberY: y
+                    }
                     board.push(cell)
                 }
                 else if(x == 4 && y == 8){
-                    const blackking = new Figure("black","K",x,y,false,false,"../src/assets/figures/king1.png")
-                    const cell = new Cell(blackking,x,y)
+                    const blackking = {
+                        color: "black",
+                        name: "K",
+                        x: x,
+                        y: y,
+                        url: '../src/assets/figures/king1.png'
+                    }
+                    const cell = {
+                        figure: blackking,
+                        numberX: x,
+                        numberY: y
+                    }
                     board.push(cell)
                 }
                 else{
-                    const cell = new Cell(null,x,y)
+                    const cell = {
+                        figure: null,
+                        numberX: x,
+                        numberY: y
+                    }
                     board.push(cell)
                 }
             }
@@ -95,7 +219,7 @@ export class Board{
                     }
                 }
                 for(let k = 0; k < array.length;k++){
-                    if((array[k].figure?.name == "Q" || array[k].figure?.name == "R") && array[k].figure?.color !== color){
+                    if((array[k].figure?.name == "Q" || array[k].figure.name == "R") && array[k].figure.color !== color){
                         return false
                     }
                     else{

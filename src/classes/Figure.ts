@@ -1,20 +1,16 @@
-import { Board } from "./Board"
+
 
 export class Figure {
     color: string
     name: string
     x: number
     y: number
-    check: boolean
-    checkmate: boolean
     url: string
-    constructor(color: string, name: string, x: number, y: number, check: boolean, checkmate: boolean, url: string) {
+    constructor(color: string, name: string, x: number, y: number, url: string) {
         this.color = color
         this.name = name
         this.x = x
         this.y = y
-        this.check = check
-        this.checkmate = checkmate
         this.url = url
     }
     moveFigure(color: string, name: string, x: number, y: number, board: any) {
@@ -63,15 +59,13 @@ export class Figure {
                 for (let sum = 1; sum < 2; sum++) {
                     let sumY = y + sum
                     let stop = false
-                    const b = new Board()
-                    const check = b.isHorisantalyEmpty(x,sumY,board,color)
                     for (let i = 0; i < filtredboard.length; i++) {
-                        if (filtredboard[i].figure.x == x && filtredboard[i].figure.y == sumY || !check) {
-                            console.log(check)
+                        if (filtredboard[i].figure.x == x && filtredboard[i].figure.y == sumY) {
+
                             stop = true
                         }
                     }
-                    if (sumY > 8 || check == false) {
+                    if (sumY > 8) {
                         break
                     }
                     else {
@@ -624,8 +618,8 @@ export class Figure {
                 break
             case "P":
                 for (let i = 0; i < filtredboard.length; i++) {
-                    
-                    if ((color == "white" && filtredboard[i].figure.y == y + 1) || (color == "black" && filtredboard[i].figure.y == y - 1)) {
+
+                    if ((color == "white" && filtredboard[i].figure.y == y + 1) || (color == "black" && filtredboard[i].figure.y == y - 1) || (color == "white" && filtredboard[i].figure.y == y + 2) || (color == "black" && filtredboard[i].figure.y == y - 2)) {
                         break
                     }
                     else if (color == "white" && y == 2) {
@@ -708,11 +702,13 @@ export class Figure {
                 for (let sum = 1; sum < 2; sum++) {
                     let sumY = y - sum
                     let stop = false
+                    const check = this.kingincheckhor(color,sumY,board)
+                    console.log(check)
                     for (let i = 0; i < filtredboard.length; i++) {
                         if (filtredboard[i].figure.x == x && filtredboard[i].figure.y == sumY && filtredboard[i].figure.name !== "K") {
                             attacks.push([x, sumY])
                         }
-                        else if (sumY == 0) {
+                        else if (sumY == 0 || check) {
                             stop = true
                         }
                     }
@@ -945,15 +941,15 @@ export class Figure {
                     let sumX = x + 2
                     let sumY = y + 1
                     let stop = false
-                    for(let i = 0;i < filtredboard.length;i++){
-                        if(filtredboard[i].figure.x == sumX && filtredboard[i].figure.y == sumY && filtredboard[i].figure.name !== "K"){
-                            attacks.push([sumX,sumY])
+                    for (let i = 0; i < filtredboard.length; i++) {
+                        if (filtredboard[i].figure.x == sumX && filtredboard[i].figure.y == sumY && filtredboard[i].figure.name !== "K") {
+                            attacks.push([sumX, sumY])
                         }
-                        else if(sumX > 8 || sumY > 8){
+                        else if (sumX > 8 || sumY > 8) {
                             stop = true
                         }
                     }
-                    if(stop){
+                    if (stop) {
                         break
                     }
                 }
@@ -961,15 +957,15 @@ export class Figure {
                     let sumX = x + 2
                     let sumY = y - 1
                     let stop = false
-                    for(let i = 0;i < filtredboard.length;i++){
-                        if(filtredboard[i].figure.x == sumX && filtredboard[i].figure.y == sumY && filtredboard[i].figure.name !== "K"){
-                            attacks.push([sumX,sumY])
+                    for (let i = 0; i < filtredboard.length; i++) {
+                        if (filtredboard[i].figure.x == sumX && filtredboard[i].figure.y == sumY && filtredboard[i].figure.name !== "K") {
+                            attacks.push([sumX, sumY])
                         }
-                        else if(sumX > 8 || sumY == 0){
+                        else if (sumX > 8 || sumY == 0) {
                             stop = true
                         }
                     }
-                    if(stop){
+                    if (stop) {
                         break
                     }
                 }
@@ -977,15 +973,15 @@ export class Figure {
                     let sumX = x - 2
                     let sumY = y + 1
                     let stop = false
-                    for(let i = 0;i < filtredboard.length;i++){
-                        if(filtredboard[i].figure.x == sumX && filtredboard[i].figure.y == sumY && filtredboard[i].figure.name !== "K"){
-                            attacks.push([sumX,sumY])
+                    for (let i = 0; i < filtredboard.length; i++) {
+                        if (filtredboard[i].figure.x == sumX && filtredboard[i].figure.y == sumY && filtredboard[i].figure.name !== "K") {
+                            attacks.push([sumX, sumY])
                         }
-                        else if(sumX <= 0 || sumY > 8){
+                        else if (sumX <= 0 || sumY > 8) {
                             stop = true
                         }
                     }
-                    if(stop){
+                    if (stop) {
                         break
                     }
                 }
@@ -993,15 +989,15 @@ export class Figure {
                     let sumX = x - 2
                     let sumY = y - 1
                     let stop = false
-                    for(let i = 0;i < filtredboard.length;i++){
-                        if(filtredboard[i].figure.x == sumX && filtredboard[i].figure.y == sumY && filtredboard[i].figure.name !== "K"){
-                            attacks.push([sumX,sumY])
+                    for (let i = 0; i < filtredboard.length; i++) {
+                        if (filtredboard[i].figure.x == sumX && filtredboard[i].figure.y == sumY && filtredboard[i].figure.name !== "K") {
+                            attacks.push([sumX, sumY])
                         }
-                        else if(sumX <= 0 || sumY == 0){
+                        else if (sumX <= 0 || sumY == 0) {
                             stop = true
                         }
                     }
-                    if(stop){
+                    if (stop) {
                         break
                     }
                 }
@@ -1009,15 +1005,15 @@ export class Figure {
                     let sumX = x + 1
                     let sumY = y + 2
                     let stop = false
-                    for(let i = 0;i < filtredboard.length;i++){
-                        if(filtredboard[i].figure.x == sumX && filtredboard[i].figure.y == sumY && filtredboard[i].figure.name !== "K"){
-                            attacks.push([sumX,sumY])
+                    for (let i = 0; i < filtredboard.length; i++) {
+                        if (filtredboard[i].figure.x == sumX && filtredboard[i].figure.y == sumY && filtredboard[i].figure.name !== "K") {
+                            attacks.push([sumX, sumY])
                         }
-                        else if(sumX > 8 || sumY > 8){
+                        else if (sumX > 8 || sumY > 8) {
                             stop = true
                         }
                     }
-                    if(stop){
+                    if (stop) {
                         break
                     }
                 }
@@ -1025,15 +1021,15 @@ export class Figure {
                     let sumX = x + 1
                     let sumY = y - 2
                     let stop = false
-                    for(let i = 0;i < filtredboard.length;i++){
-                        if(filtredboard[i].figure.x == sumX && filtredboard[i].figure.y == sumY && filtredboard[i].figure.name !== "K"){
-                            attacks.push([sumX,sumY])
+                    for (let i = 0; i < filtredboard.length; i++) {
+                        if (filtredboard[i].figure.x == sumX && filtredboard[i].figure.y == sumY && filtredboard[i].figure.name !== "K") {
+                            attacks.push([sumX, sumY])
                         }
-                        else if(sumX < 8 || sumY <= 0){
+                        else if (sumX < 8 || sumY <= 0) {
                             stop = true
                         }
                     }
-                    if(stop){
+                    if (stop) {
                         break
                     }
                 }
@@ -1041,15 +1037,15 @@ export class Figure {
                     let sumX = x - 1
                     let sumY = y - 2
                     let stop = false
-                    for(let i = 0;i < filtredboard.length;i++){
-                        if(filtredboard[i].figure.x == sumX && filtredboard[i].figure.y == sumY && filtredboard[i].figure.name !== "K"){
-                            attacks.push([sumX,sumY])
+                    for (let i = 0; i < filtredboard.length; i++) {
+                        if (filtredboard[i].figure.x == sumX && filtredboard[i].figure.y == sumY && filtredboard[i].figure.name !== "K") {
+                            attacks.push([sumX, sumY])
                         }
-                        else if(sumX == 0 || sumY <= 0){
+                        else if (sumX == 0 || sumY <= 0) {
                             stop = true
                         }
                     }
-                    if(stop){
+                    if (stop) {
                         break
                     }
                 }
@@ -1057,20 +1053,20 @@ export class Figure {
                     let sumX = x - 1
                     let sumY = y + 2
                     let stop = false
-                    for(let i = 0;i < filtredboard.length;i++){
-                        if(filtredboard[i].figure.x == sumX && filtredboard[i].figure.y == sumY && filtredboard[i].figure.name !== "K"){
-                            attacks.push([sumX,sumY])
+                    for (let i = 0; i < filtredboard.length; i++) {
+                        if (filtredboard[i].figure.x == sumX && filtredboard[i].figure.y == sumY && filtredboard[i].figure.name !== "K") {
+                            attacks.push([sumX, sumY])
                         }
-                        else if(sumX == 0 || sumY > 0){
+                        else if (sumX == 0 || sumY > 0) {
                             stop = true
                         }
                     }
-                    if(stop){
+                    if (stop) {
                         break
                     }
                 }
                 break
-                
+
             case "R":
                 for (let sum = 1; sum < 8; sum++) {
                     let sumX = x + sum
@@ -1237,18 +1233,28 @@ export class Figure {
                     else if (color == "black" && (filtredboard[i].figure.x == x - 1 && filtredboard[i].figure.y == y - 1) && filtredboard[i].figure.name !== "K") {
                         attacks.push([x - 1, y - 1])
                     }
-                    
+
                 }
                 break
         }
         return attacks
     }
-    kingincheck(bool: boolean, ){
-        if(bool){
-            return true
-        }
-        else{
-            return false
+    kingincheckhor(color: string, y: number, board: any) {
+        const enemyfigures = board.filter(({ figure }: any) => { return figure?.color !== color })
+        const filtredboard = enemyfigures.filter(({ figure }: any) => { return figure })
+        for (let i = 0; i < board.length; i++) {
+            if (board[i].y == y) {
+                for (let j = 0; j < filtredboard.length; j++) {
+                    if (filtredboard[i].y == board[i].y) {
+                        if (filtredboard[i].figure.name == "Q" || filtredboard[i].figure.name == "R") {
+                            return true
+                        }
+                        else {
+                            return false
+                        }
+                    }
+                }
+            }
         }
     }
 }
