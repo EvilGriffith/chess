@@ -117,6 +117,7 @@ function App() {
         setattacks(attack)
       }
     }
+    //dsajkdkjask
     else {
       if (figureselect) {
         const f = new Figure(figureselect.color, figureselect.name, figureselect.x, figureselect.y, figureselect.url)
