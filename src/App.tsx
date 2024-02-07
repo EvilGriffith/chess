@@ -2,7 +2,6 @@ import { Board } from "./classes/Board"
 import { useState, useEffect } from "react"
 import "./css/App.css"
 import { Figure } from "./classes/Figure"
-import { Game } from "./classes/Game"
 import { addDoc, collection, doc, getDocs, onSnapshot, query, updateDoc } from "firebase/firestore"
 import { db } from "./main"
 
@@ -90,13 +89,35 @@ function App() {
       const f = new Figure(color, name, x, y, "")
       const moves = f.moveFigure(f.color, f.name, x, y, board)
       const attack = f.attackFigure(f.color, f.name, f.x, f.y, board)
-      setmmove(moves)
-
-      setattacks(attack)
-
+      const checkhorplus = f.kingincheckhor(color,y + 1,board)
+      const checkhorminus = f.kingincheckhor(color,y - 1,board)
+      if(name == "K"){
+        if(checkhorplus || checkhorminus){
+          const newmoves = []
+          for(let i = 0;i < moves.length;i++){
+            if(checkhorplus !== moves[i][1] || checkhorminus !== moves[i][1]){
+              console.log("add")
+              newmoves.push(moves[i])
+            }
+            else if(i == moves.length - 1){
+              setmmove(newmoves)
+            }
+            else{
+              continue
+            }
+          }
+        }
+        else{
+          setmmove(moves)
+          setattacks(attack)
+        }
+      }
+      else{
+        setmmove(moves)
+        setattacks(attack)
+      }
     }
     else {
-
       if (figureselect) {
         const f = new Figure(figureselect.color, figureselect.name, figureselect.x, figureselect.y, figureselect.url)
         const attacks = f.attackFigure(figureselect.color, figureselect.name, figureselect.x, figureselect.y, board)
@@ -243,13 +264,13 @@ function App() {
 
   return (
     <div className="background">
-      <div className="board">
+      <div className="board" style={ currentplayer == "white" ? {transform: `rotate(180deg)`, boxShadow: `0px 0px 10px 10px black`} : {}}>
         {board?.map(({ figure, numberX, numberY }: any, index: any) => {
           return (
             figure
               ?
               <div className="cell" style={(numberX + numberY) % 2 == 0 ? { backgroundColor: "#BA9E7B" } : { backgroundColor: "#664832" }} key={index}>
-                <div className="figure" style={{ backgroundImage: `url(${figure.url})` }} onClick={() => { move(figure.name, figure, numberX, numberY, figure.color) }}>
+                <div className="figure" style={ currentplayer == "white" ? {transform: `rotate(180deg)`, backgroundImage: `url(${figure.url})`} : {backgroundImage: `url(${figure.url})`}} onClick={() => { move(figure.name, figure, numberX, numberY, figure.color) }}>
                   <div className="danger" style={attackcheck(numberX, numberY) ? { backgroundImage: `url(../src/assets/figures/danger.png)`, cursor: 'pointer' } : {}} onClick={() => { move(figure.name, figure, numberX, numberY, figure.color) }} />
                 </div>
               </div>

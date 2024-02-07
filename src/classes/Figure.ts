@@ -702,13 +702,11 @@ export class Figure {
                 for (let sum = 1; sum < 2; sum++) {
                     let sumY = y - sum
                     let stop = false
-                    const check = this.kingincheckhor(color,sumY,board)
-                    console.log(check)
                     for (let i = 0; i < filtredboard.length; i++) {
                         if (filtredboard[i].figure.x == x && filtredboard[i].figure.y == sumY && filtredboard[i].figure.name !== "K") {
                             attacks.push([x, sumY])
                         }
-                        else if (sumY == 0 || check) {
+                        else if (sumY == 0) {
                             stop = true
                         }
                     }
@@ -1243,17 +1241,29 @@ export class Figure {
         const enemyfigures = board.filter(({ figure }: any) => { return figure?.color !== color })
         const filtredboard = enemyfigures.filter(({ figure }: any) => { return figure })
         for (let i = 0; i < board.length; i++) {
-            if (board[i].y == y) {
+            if (board[i].numberY == y) {
                 for (let j = 0; j < filtredboard.length; j++) {
-                    if (filtredboard[i].y == board[i].y) {
-                        if (filtredboard[i].figure.name == "Q" || filtredboard[i].figure.name == "R") {
-                            return true
+                    if (filtredboard[j].figure.y == board[i].numberY) {
+                        if (filtredboard[j].figure.name == "Q" || filtredboard[j].figure.name == "R") {
+                            return y
                         }
                         else {
-                            return false
+                            continue
                         }
                     }
+                    else if(j == filtredboard.length - 1){
+                        return false
+                    }
+                    else{
+                        continue
+                    }
                 }
+            }
+            else if(i == 63){
+                return false
+            }
+            else{
+                continue
             }
         }
     }
