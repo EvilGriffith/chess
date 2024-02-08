@@ -1,5 +1,3 @@
-
-
 export class Figure {
     color: string
     name: string
@@ -1246,6 +1244,36 @@ export class Figure {
                     if (filtredboard[j].figure.y == board[i].numberY) {
                         if (filtredboard[j].figure.name == "Q" || filtredboard[j].figure.name == "R") {
                             return y
+                        }
+                        else {
+                            continue
+                        }
+                    }
+                    else if(j == filtredboard.length - 1){
+                        return false
+                    }
+                    else{
+                        continue
+                    }
+                }
+            }
+            else if(i == 63){
+                return false
+            }
+            else{
+                continue
+            }
+        }
+    }
+    kingincheckver(color: string, x: number, board: any){
+        const enemyfigures = board.filter(({ figure }: any) => { return figure?.color !== color })
+        const filtredboard = enemyfigures.filter(({ figure }: any) => { return figure })
+        for (let i = 0; i < board.length; i++) {
+            if (board[i].numberX == x) {
+                for (let j = 0; j < filtredboard.length; j++) {
+                    if (filtredboard[j].figure.x == board[i].numberX) {
+                        if (filtredboard[j].figure.name == "Q" || filtredboard[j].figure.name == "R") {
+                            return x
                         }
                         else {
                             continue

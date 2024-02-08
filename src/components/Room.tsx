@@ -1,14 +1,14 @@
-import { Board } from "./classes/Board"
+import { Board } from "../classes/Board"
 import { useState, useEffect } from "react"
-import "./css/App.css"
-import { Figure } from "./classes/Figure"
+import "../css/Room.css"
+import { Figure } from "../classes/Figure"
 import { addDoc, collection, doc, getDocs, onSnapshot, query, updateDoc } from "firebase/firestore"
-import { db } from "./main"
+import { db } from "../main"
 
 
 
 
-function App() {
+function Room() {
   const [board, setboard] = useState<any>()
   const [figureselect, setfigureselect] = useState<any>(null)
   const [mmove, setmmove] = useState<number[][]>([[]])
@@ -89,13 +89,15 @@ function App() {
       const f = new Figure(color, name, x, y, "")
       const moves = f.moveFigure(f.color, f.name, x, y, board)
       const attack = f.attackFigure(f.color, f.name, f.x, f.y, board)
-      const checkhorplus = f.kingincheckhor(color,y + 1,board)
-      const checkhorminus = f.kingincheckhor(color,y - 1,board)
       if(name == "K"){
-        if(checkhorplus || checkhorminus){
+        const checkhorplus = f.kingincheckhor(color,y + 1,board)
+        const checkhorminus = f.kingincheckhor(color,y - 1,board)
+        const checkverplus = f.kingincheckver(color,x + 1,board)
+        const checkverminus = f.kingincheckver(color,x - 1,board)
+        if(checkhorplus || checkhorminus || checkverplus || checkverminus){
           const newmoves = []
           for(let i = 0;i < moves.length;i++){
-            if(checkhorplus !== moves[i][1] || checkhorminus !== moves[i][1]){
+            if(checkhorplus !== moves[i][1] || checkhorminus !== moves[i][1] || checkverplus !== moves[i][0] || checkverminus !== moves[i][0]){
               console.log("add")
               newmoves.push(moves[i])
             }
@@ -286,4 +288,4 @@ function App() {
   )
 }
 
-export default App
+export default Room
