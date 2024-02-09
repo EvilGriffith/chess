@@ -1,11 +1,11 @@
 export class Game {
-    colormove: string
+    colormove: string | null
     gamestopped: boolean
     
     player1: string
     player2: string | null
     board: object[]
-    constructor(colormove:string, gamestopped: boolean, player1:string,player2:string | null,board: object[]) {
+    constructor(colormove:string | null, gamestopped: boolean, player1:string,player2:string | null,board: object[]) {
         this.colormove = colormove
         this.gamestopped = gamestopped
         this.player1 = player1

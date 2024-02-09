@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&family=Roboto:ital,wght@0,400;0,700;1,300&display=swap');
+*{
+    padding: 0;
+    margin: 0;
+    font-family: "Pixelify Sans";
+}
+.background{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    background-image: url("https://images.chesscomfiles.com/chess-themes/backgrounds/originals/large/walnut.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+.butonline{
+    width: 200px;
+    height: 70px;
+    background-color: black;
+    border-radius: 5px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    transition: 0.3s ease-in-out;
+}
+.link{
+    text-decoration: none;
+}
+.logo{
+    margin-bottom: 250px;
+    color: white;
+    font-weight: 400;
+    font-size: 30px;
+    user-select: none;
+}
+.butcustom{
+    margin-top: 50px;
+    width: 200px;
+    height: 70px;
+    background-color: black;
+    border-radius: 5px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    transition: 0.3s ease-in-out;
+}
+.butcustom:hover{
+    background-color: white;
+    color: black;
+    cursor: pointer;
+}
+.butonline:hover{
+    background-color: white;
+    color: black;
+    cursor: pointer;
+}

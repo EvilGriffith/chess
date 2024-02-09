@@ -1,6 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&family=Roboto:ital,wght@0,400;0,700;1,300&display=swap');
 *{
     padding: 0;
     margin: 0;
+    font-family: "Pixelify Sans";
 }
 .background{
     width: 100vw;
@@ -56,6 +58,230 @@
     width: 85px;
     height: 85px;
 
+}
+.navbar{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    
+}
+.repeat{
+    background-image: url("../assets/figures/repeat.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 60px;
+    height: 60px;
+}
+.name{
+    color: white;
+    margin-left: 10%;
+    user-select: none;
+    cursor: pointer;
+}
+.burger{
+    background-image: url("../assets/figures/burger.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 60px;
+    height: 60px;
+    margin-left: 70%;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+.menu{
+    position: absolute;
+    margin-top: 25px;
+    right: 0;
+    width: 25vw;
+    height: 90%;
+    background-color: black;
+    transition: 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 5px;
+
+}
+.figures{
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    width: 160px;
+    height: 110px;
+    border-radius: 5px;
+    background-color: black;
+    transition: 0.5s ease-in;
+}
+.king{
+    margin-top: 5px;
+    margin-left: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    background-image: url("../assets/figures/king.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    transition: 0.5s ease-in;
+    border: 3px solid black;
+    
+}
+.queen{
+    margin-top: 5px;
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    background-image: url("../assets/figures/queen.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: 3px solid black;
+    transition: 0.5s ease-in;
+}
+.bishop{
+    margin-top: 5px;
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    background-image: url("../assets/figures/bishop.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: 3px solid black;
+    transition: 0.5s ease-in;
+}
+.knight{
+    width: 40px;
+    margin-left: 10px;
+    height: 40px;
+    border-radius: 5px;
+    background-image: url("../assets/figures/knight.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: 3px solid black;
+    transition: 0.5s ease-in;
+}
+.pawn{
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    background-image: url("../assets/figures/pawn.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: 3px solid black;
+    transition: 0.5s ease-in;
+}
+.rook{
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    background-image: url("../assets/figures/rook.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: 3px solid black;
+    transition: 0.5s ease-in;
+}
+.king:hover{
+    border: 3px solid #fff;
+    cursor: pointer;
+}
+.queen:hover{
+    border: 3px solid #fff;
+    cursor: pointer;
+}
+.bishop:hover{
+    border: 3px solid #fff;
+    cursor: pointer;
+}
+.knight:hover{
+    border: 3px solid #fff;
+    cursor: pointer;
+}
+.pawn:hover{
+    border: 3px solid #fff;
+    cursor: pointer;
+}
+.rook:hover{
+    border: 3px solid #fff;
+    cursor: pointer;
+}
+.colorpicker{
+    width: 160px;
+    display: flex;
+    height: 30px;
+    margin-top: 60px;
+    transition: 0.5s ease-in;
+}
+.white{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    border-radius: 5px;
+    transition: 0.5s ease-in;
+}
+.black{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    border-radius: 5px;
+    transition: 0.5s ease-in;
+}
+.white:hover{
+    background-color: #fff;
+    color: black;
+    cursor: pointer;
+}
+.black:hover{
+    background-color: #fff;
+    color: black;
+    cursor: pointer;
+}
+.start{
+    color: white;
+    width: 160px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    border-radius: 5px;
+    transition: 0.5s ease-in;
+    margin-top: 150px;
+}
+.start:hover{
+    background-color: white;
+    color: black;
+    cursor: pointer;
+}
+.null{
+    display: none;
+}
+.burgeropacity{
+    background-image: url("../assets/figures/burger.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 60px;
+    height: 60px;
+    margin-left: 70%;
+    cursor: pointer;
+    transition: 0.3s ease;
+    opacity: 0.5;
 }
 @media screen and (max-width: 767px) {
     .board{

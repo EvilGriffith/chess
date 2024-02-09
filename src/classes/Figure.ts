@@ -1,3 +1,18 @@
+export enum Urls{
+    whiteP = "../src/assets/figures/pawn.png",
+    whiteK = "../src/assets/figures/king.png",
+    whiteQ = "../src/assets/figures/queen.png",
+    whiteB = "../src/assets/figures/bishop.png",
+    whitekN = "../src/assets/figures/knight.png",
+    whiteR = "../src/assets/figures/rook.png",
+    blackK = "../src/assets/figures/king1.png",
+    blackQ = "../src/assets/figures/queen1.png",
+    blackB = "../src/assets/figures/bishop1.png",
+    blackkN = "../src/assets/figures/knight1.png",
+    blackR = "../src/assets/figures/rook1.png",
+    blackP = "../src/assets/figures/pawn1.png"
+}
+
 export class Figure {
     color: string
     name: string
