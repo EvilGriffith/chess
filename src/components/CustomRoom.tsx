@@ -244,7 +244,7 @@ export const CustomRoom = () => {
       <div className="navbar">
         <div className="name">PXChess</div>
         <div className="repeat" onClick={repeat}/>
-        <div className={startgame ? "burgeropacity" : "burger"} style={burgerpress ? { backgroundImage: `url(../src/assets/figures/back.png)` } : {}} onClick={() => { !startgame ? setburgerpress(!burgerpress) : setburgerpress(burgerpress) }} />
+        <div className={startgame ? "burgeropacity" : "burger"} style={burgerpress ? { backgroundImage: `url(https://evilgriffith.github.io/images/back.png)` } : {}} onClick={() => { !startgame ? setburgerpress(!burgerpress) : setburgerpress(burgerpress) }} />
       </div>
       <div className="menu" style={burgerpress ? { width: "25vw" } : { width: 0 }}>
         <div className={burgerpress ? "figures" : "null"}>
