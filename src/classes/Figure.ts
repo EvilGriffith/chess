@@ -1,16 +1,16 @@
 export enum Urls{
-    whiteP = "../src/assets/figures/pawn.png",
-    whiteK = "../src/assets/figures/king.png",
-    whiteQ = "../src/assets/figures/queen.png",
-    whiteB = "../src/assets/figures/bishop.png",
-    whitekN = "../src/assets/figures/knight.png",
-    whiteR = "../src/assets/figures/rook.png",
-    blackK = "../src/assets/figures/king1.png",
-    blackQ = "../src/assets/figures/queen1.png",
-    blackB = "../src/assets/figures/bishop1.png",
-    blackkN = "../src/assets/figures/knight1.png",
-    blackR = "../src/assets/figures/rook1.png",
-    blackP = "../src/assets/figures/pawn1.png"
+    whiteP = "https://evilgriffith.github.io/images/pawn.png",
+    whiteK = "https://evilgriffith.github.io/images/king.png",
+    whiteQ = "https://evilgriffith.github.io/images/queen.png",
+    whiteB = "https://evilgriffith.github.io/images/bishop.png",
+    whitekN = "https://evilgriffith.github.io/images/knight.png",
+    whiteR = "https://evilgriffith.github.io/images/rook.png",
+    blackK = "https://evilgriffith.github.io/images/king1.png",
+    blackQ = "https://evilgriffith.github.io/images/queen1.png",
+    blackB = "https://evilgriffith.github.io/images/bishop1.png",
+    blackkN = "https://evilgriffith.github.io/images/knight1.png",
+    blackR = "https://evilgriffith.github.io/images/rook1.png",
+    blackP = "https://evilgriffith.github.io/images/pawn1.png"
 }
 
 export class Figure {
