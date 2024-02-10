@@ -22,7 +22,7 @@ export class Board{
                         name: "R",
                         x: x,
                         y: y,
-                        url: './assets/figures/rook.png'
+                        url: '../assets/figures/rook.png'
                     }
                     const cell = {
                         figure: whiterock,
@@ -37,7 +37,7 @@ export class Board{
                         name: "kN",
                         x: x,
                         y: y,
-                        url: './assets/figures/knight.png'
+                        url: '../assets/figures/knight.png'
                     }
                     const cell = {
                         figure: whiteknight,
@@ -52,7 +52,7 @@ export class Board{
                         name: "B",
                         x: x,
                         y: y,
-                        url: './assets/figures/bishop.png'
+                        url: '../assets/figures/bishop.png'
                     }
                     const cell = {
                         figure: whitebishop ,
@@ -67,7 +67,7 @@ export class Board{
                         name: "Q",
                         x: x,
                         y: y,
-                        url: './assets/figures/queen.png'
+                        url: '../assets/figures/queen.png'
                     }
                     const cell = {
                         figure: whitequeen,
@@ -82,7 +82,7 @@ export class Board{
                         name: "K",
                         x: x,
                         y: y,
-                        url: './assets/figures/king.png'
+                        url: '../assets/figures/king.png'
                     }
                     const cell = {
                         figure: whiteking,
@@ -97,7 +97,7 @@ export class Board{
                         name: "P",
                         x: x,
                         y: y,
-                        url: './assets/figures/pawn.png'
+                        url: '../assets/figures/pawn.png'
                     }
                     const cell = {
                         figure: whitepawn,
@@ -112,7 +112,7 @@ export class Board{
                         name: "P",
                         x: x,
                         y: y,
-                        url: './assets/figures/pawn1.png'
+                        url: '../assets/figures/pawn1.png'
                     }
                     const cell = {
                         figure: blackpawn,
@@ -127,7 +127,7 @@ export class Board{
                         name: "R",
                         x: x,
                         y: y,
-                        url: './assets/figures/rook1.png'
+                        url: '../assets/figures/rook1.png'
                     }
                     const cell = {
                         figure: blackrock,
@@ -142,7 +142,7 @@ export class Board{
                         name: "kN",
                         x: x,
                         y: y,
-                        url: './assets/figures/knight1.png'
+                        url: '../assets/figures/knight1.png'
                     }
                     const cell = {
                         figure: blackknight,
@@ -157,7 +157,7 @@ export class Board{
                         name: "B",
                         x: x,
                         y: y,
-                        url: './assets/figures/bishop1.png'
+                        url: '../assets/figures/bishop1.png'
                     }
                     const cell = {
                         figure: blackbishop,
@@ -172,7 +172,7 @@ export class Board{
                         name: "Q",
                         x: x,
                         y: y,
-                        url: './assets/figures/queen1.png'
+                        url: '../assets/figures/queen1.png'
                     }
                     const cell = {
                         figure: blackqueen,
@@ -187,7 +187,7 @@ export class Board{
                         name: "K",
                         x: x,
                         y: y,
-                        url: './assets/figures/king1.png'
+                        url: '../assets/figures/king1.png'
                     }
                     const cell = {
                         figure: blackking,
