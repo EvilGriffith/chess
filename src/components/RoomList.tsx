@@ -1,14 +1,18 @@
 import { useEffect,useState } from "react"
 import "../css/RoomList.css"
-import { addDoc, collection, doc, getDocs, onSnapshot, query, updateDoc } from "firebase/firestore"
+import {  addDoc, collection,  onSnapshot, query, } from "firebase/firestore"
 import { db } from "../main"
 import { roomdomain } from "../domains"
+import { Link } from "react-router-dom"
+import { Board } from "../classes/Board"
 
-export const RoomList = ({navigation}: any) => {
+
+export const RoomList = () => {
     const col = collection(db,"game")
     const [rooms, setrooms] = useState<object[]>([])
     const [newgamepress,setnewgamepress] = useState(false)
     const [classicroompress,setclassicroompress] = useState(false)
+    const [name,setname] = useState("Create new game")
     useEffect(() => {
         const querygames: any = query(col)
         onSnapshot(querygames, (sn: any) => {
@@ -21,7 +25,25 @@ export const RoomList = ({navigation}: any) => {
     
         })
     }, [])
-console.log(rooms)
+    const handlecreate = async() => {
+        const col = collection(db,"game")
+        const classb = new Board()
+        const board = classb.createClassicBoard()
+        const game = {
+            colormove: "white",
+            gamestopped: false,
+            player1: null,
+            player2: null,
+            board: board,
+            roomid: Math.floor(Math.random() * 250) + 1
+        }
+        await addDoc(col,game)
+        setname("Your game was been create!")
+        setTimeout(() => {
+            setname("Create new game")
+        }, 5000);
+    }
+    console.log(rooms.length)
     return (
         <div className="background">
             <div className="window">
@@ -38,13 +60,18 @@ console.log(rooms)
                 </div>
                 <div className="rs">
                     {
-                        classicroompress
+                        newgamepress && !classicroompress
                         ?
-                        rooms.map(({id}: any) => {
-                            return <div className="room" onClick={navigation.navigate(roomdomain,{id: id})}>{id}</div>
-                        })
+                        <div className="createbut" onClick={handlecreate}>{name}</div>
                         :
-                        <></>
+                        rooms.map(({id,roomid}: any) => { return(
+                            rooms.length !== 0
+                            ?
+                             <Link className="link" to={roomdomain} state={id}><div className="room">{'Room: ' + roomid}</div></Link>
+                            :
+                            <div className="nogame">No games available</div>
+                        )
+                        })
                     }
                 </div>
             </div>

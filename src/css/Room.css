@@ -35,7 +35,11 @@
     
 }
 
-
+.colormove{
+    color: white;
+    margin-left: 70%;
+    user-select: none;
+}
 .figure{
     width: 100%;
     height: 100%;

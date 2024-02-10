@@ -1,75 +1,89 @@
-import { Board } from "../classes/Board"
 import { useState, useEffect } from "react"
 import "../css/Room.css"
 import { Figure } from "../classes/Figure"
-import { addDoc, collection, doc, getDocs, onSnapshot, query, updateDoc } from "firebase/firestore"
+import { collection, doc, onSnapshot, query, updateDoc } from "firebase/firestore"
 import { db } from "../main"
+import { useLocation } from "react-router-dom"
+
 
 
 
 
 function Room() {
   const [board, setboard] = useState<any>()
+  const {state}: any = useLocation() 
   const [figureselect, setfigureselect] = useState<any>(null)
   const [mmove, setmmove] = useState<number[][]>([[]])
   const [attacks, setattacks] = useState<number[][]>([[]])
   const [game, setgame] = useState<any>({})
   const [currentplayer, setcurrentplayer] = useState<string>("")
   const [docid, setdocid] = useState<string>("white")
-  const [chek, setcheck] = useState(0)
+  const [chek,setchek] = useState(false)
+  const docref = doc(db,"game",state)
   const col = collection(db, "game")
+  let bool = false
 
-  const fetchgame = async () => {
-    const querygames = await getDocs(col)
-    const games = querygames.docs.map(doc => ({ id: doc.id, ...doc.data() }))
-    if (games.length <= 1) {
-      setcurrentplayer("white")
-      const b = new Board()
-      const bb = b.createClassicBoard()
-      const newgame = {
-        colormove: "white",
-        gamestopped: false,
-        player1: "white",
-        player2: null,
-        board: bb
-      }
-      await addDoc(col, newgame)
-      setcheck(1)
-
-    }
-    else {
-      setcurrentplayer("black")
-      setcheck(1)
-
-    }
-  }
+  
   console.log(currentplayer)
-  const loadgame = async () => {
+  
+  const fetchgame = async() => {
     const querygames: any = query(col)
     onSnapshot(querygames, (sn: any) => {
       const games: any = []
-      sn.forEach((doc: any) => {
+      sn.forEach(async (doc: any) => {
         games.push({ ...doc.data(), id: doc.id })
-        if (currentplayer == "white") {
-          setdocid(games[0].id)
-          setgame(games[0])
-          setboard(games[0].board.reverse())
+        for(let i = 0;i < games.length;i++){
+          if(games[i].id == state){
+            if(games[i].player1 == null && !bool){
+              let copygame = games[i]
+              copygame.player1 = 'white'
+              console.log(copygame)
+              setcurrentplayer("white")
+              setchek(true)
+              setdocid(state)
+              bool = true
+              await updateDoc(docref,copygame)
+              break
+            }
+            else if(games[i].player2 == null && !bool){
+              let copygame = games[i]
+              copygame.player2 = 'black'
+              setcurrentplayer("black")
+              setchek(true)
+              setdocid(state)
+              bool = true
+              await updateDoc(docref,copygame)
+              break
+            }
+            else{
+              setchek(true)
+              setdocid(state)
+              break
+              
+            }
+          }
         }
-        else {
-          setdocid(games[0].id)
-          setgame(games[0])
-          setboard(games[0].board)
-        }
-      })
-
-    })
+      })})
   }
 
   useEffect(() => {
-    if (chek == 0) {
+    if(!chek){
       fetchgame()
     }
-    loadgame()
+    const querygames: any = query(col)
+    onSnapshot(querygames, (sn: any) => {
+      const games: any = []
+      sn.forEach(async (doc: any) => {
+        games.push({ ...doc.data(), id: doc.id })
+        for(let i = 0;i < games.length;i++){
+          if(games[i].id == state){
+            setboard(games[i].board)
+            setgame(games[i])
+          }
+        }
+      })
+    })
+        
   }, [])
 
   const changecolor = () => {
@@ -267,6 +281,15 @@ function Room() {
 
   return (
     <div className="background">
+      <div className="navbar">
+        <div className="name">
+          PXChess
+        </div>
+        <div className="colormove">
+          {"Now Move: " + game.colormove}
+        </div>
+        
+      </div>
       <div className="board" style={ currentplayer == "white" ? {transform: `rotate(180deg)`, boxShadow: `0px 0px 10px 10px black`} : {}}>
         {board?.map(({ figure, numberX, numberY }: any, index: any) => {
           return (
