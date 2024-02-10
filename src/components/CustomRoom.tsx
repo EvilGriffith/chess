@@ -274,12 +274,12 @@ export const CustomRoom = () => {
               ?
               <div className="cell" style={(numberX + numberY) % 2 == 0 ? { backgroundColor: "#BA9E7B" } : { backgroundColor: "#664832" }} key={index}>
                 <div className="figure" style={{ backgroundImage: `url(${figure.url})` }} onClick={() => { move(figure, numberX, numberY, figure.color) }}>
-                  <div className="danger" style={attackcheck(numberX, numberY, figure.name) ? { backgroundImage: `url(../src/assets/figures/danger.png)`, cursor: 'pointer' } : {}} onClick={() => { move(figure, numberX, numberY, figure.color) }} />
+                  <div className="danger" style={attackcheck(numberX, numberY, figure.name) ? { backgroundImage: `url(https://evilgriffith.github.io/images/danger.png)`, cursor: 'pointer' } : {}} onClick={() => { move(figure, numberX, numberY, figure.color) }} />
                 </div>
               </div>
               :
               <div className="cell" style={(numberX + numberY) % 2 == 0 ? { backgroundColor: "#BA9E7B" } : { backgroundColor: "#664832" }} key={index}>
-                <div className="move" style={check(numberX, numberY) ? { backgroundImage: `url(../src/assets/figures/move.png)`, cursor: "pointer" } : {}} onClick={() => { stayfigure(numberX, numberY) }}></div>
+                <div className="move" style={check(numberX, numberY) ? { backgroundImage: `url(https://evilgriffith.github.io/images/move.png)`, cursor: "pointer" } : {}} onClick={() => { stayfigure(numberX, numberY) }}></div>
               </div>
           )
         })}
