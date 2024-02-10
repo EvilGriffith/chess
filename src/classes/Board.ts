@@ -22,7 +22,7 @@ export class Board{
                         name: "R",
                         x: x,
                         y: y,
-                        url: '../src/assets/figures/rook.png'
+                        url: '../chess/src/assets/figures/rook.png'
                     }
                     const cell = {
                         figure: whiterock,
@@ -37,7 +37,7 @@ export class Board{
                         name: "kN",
                         x: x,
                         y: y,
-                        url: '../src/assets/figures/knight.png'
+                        url: '../chess/src/assets/figures/knight.png'
                     }
                     const cell = {
                         figure: whiteknight,
@@ -52,7 +52,7 @@ export class Board{
                         name: "B",
                         x: x,
                         y: y,
-                        url: '../src/assets/figures/bishop.png'
+                        url: '../chess/src/assets/figures/bishop.png'
                     }
                     const cell = {
                         figure: whitebishop ,
@@ -67,7 +67,7 @@ export class Board{
                         name: "Q",
                         x: x,
                         y: y,
-                        url: '../src/assets/figures/queen.png'
+                        url: '../chess/src/assets/figures/queen.png'
                     }
                     const cell = {
                         figure: whitequeen,
@@ -82,7 +82,7 @@ export class Board{
                         name: "K",
                         x: x,
                         y: y,
-                        url: '../src/assets/figures/king.png'
+                        url: '../chess/src/assets/figures/king.png'
                     }
                     const cell = {
                         figure: whiteking,
@@ -97,7 +97,7 @@ export class Board{
                         name: "P",
                         x: x,
                         y: y,
-                        url: '../src/assets/figures/pawn.png'
+                        url: '../chess/src/assets/figures/pawn.png'
                     }
                     const cell = {
                         figure: whitepawn,
@@ -112,7 +112,7 @@ export class Board{
                         name: "P",
                         x: x,
                         y: y,
-                        url: '../src/assets/figures/pawn1.png'
+                        url: '../chess/src/assets/figures/pawn1.png'
                     }
                     const cell = {
                         figure: blackpawn,
@@ -127,7 +127,7 @@ export class Board{
                         name: "R",
                         x: x,
                         y: y,
-                        url: '../src/assets/figures/rook1.png'
+                        url: '../chess/src/assets/figures/rook1.png'
                     }
                     const cell = {
                         figure: blackrock,
@@ -142,7 +142,7 @@ export class Board{
                         name: "kN",
                         x: x,
                         y: y,
-                        url: '../src/assets/figures/knight1.png'
+                        url: '../chess/src/assets/figures/knight1.png'
                     }
                     const cell = {
                         figure: blackknight,
@@ -157,7 +157,7 @@ export class Board{
                         name: "B",
                         x: x,
                         y: y,
-                        url: '../src/assets/figures/bishop1.png'
+                        url: '../chess/src/assets/figures/bishop1.png'
                     }
                     const cell = {
                         figure: blackbishop,
@@ -172,7 +172,7 @@ export class Board{
                         name: "Q",
                         x: x,
                         y: y,
-                        url: '../src/assets/figures/queen1.png'
+                        url: '../chess/src/assets/figures/queen1.png'
                     }
                     const cell = {
                         figure: blackqueen,
@@ -187,7 +187,7 @@ export class Board{
                         name: "K",
                         x: x,
                         y: y,
-                        url: '../src/assets/figures/king1.png'
+                        url: '../chess/src/assets/figures/king1.png'
                     }
                     const cell = {
                         figure: blackking,
