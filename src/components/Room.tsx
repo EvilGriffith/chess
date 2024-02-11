@@ -82,16 +82,6 @@ function Room() {
         
   }, [])
 
-  const changecolor = () => {
-    if (game.colormove == "white") {
-      setfigureselect(null)
-      return "black"
-    }
-    else if (game.colormove == "black") {
-      setfigureselect(null)
-      return "white"
-    }
-  }
 
   const move = async(name: string, figure: any, x: number, y: number, color: string) => {
     if (game.colormove == color && currentplayer == color) {
@@ -155,13 +145,18 @@ function Room() {
                     if (currentplayer == "white") {
                       copygame.board = copyboard
                       copygame.colormove = "black"
+                      await updateDoc(docref, copygame)
+                      newmove()
+                      break
                     }
-                    else {
+                    else if(currentplayer == "black") {
                       copygame.board = copyboard
                       copygame.colormove = "white"
+                      await updateDoc(docref, copygame)
+                      newmove()
+                      break
                     }
-                    await updateDoc(docref, copygame)
-                    newmove()
+                    
                   }
                 }
               }
@@ -180,12 +175,22 @@ function Room() {
                     figure.x = x
                     figure.y = y
                     copyboard[j].figure = figure
-                    setboard(copyboard)
                     setmmove([[]])
                     const copygame = game
-                    copygame.colormove = changecolor()
-                    setgame(copygame)
-                    newmove()
+                    if (currentplayer == "white") {
+                      copygame.board = copyboard
+                      copygame.colormove = "black"
+                      await updateDoc(docref, copygame)
+                      newmove()
+                      break
+                    }
+                    else if(currentplayer == "black") {
+                      copygame.board = copyboard
+                      copygame.colormove = "white"
+                      await updateDoc(docref, copygame)
+                      newmove()
+                      break
+                    }
                   }
                 }
               }
@@ -276,11 +281,13 @@ function Room() {
   return (
     <div className="background">
       <div className="navbar">
+        <div className="comps">
         <div className="name">
           PXChess
         </div>
         <div className="colormove">
           {"Now Move: " + game.colormove}
+        </div>
         </div>
         
       </div>

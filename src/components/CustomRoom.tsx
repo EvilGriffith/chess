@@ -245,11 +245,13 @@ export const CustomRoom = () => {
   return (
     <div className="background">
       <div className="navbar">
+        <div className="comps">
         <div className="name">PXChess</div>
         <div className="repeat" onClick={repeat}/>
         <div className={startgame ? "burgeropacity" : "burger"} style={burgerpress ? { backgroundImage: `url(https://evilgriffith.github.io/images/back.png)` } : {}} onClick={() => { !startgame ? setburgerpress(!burgerpress) : setburgerpress(burgerpress) }} />
+        </div>
       </div>
-      <div className="menu" style={burgerpress ? { width: "25vw" } : { width: 0 }}>
+      <div className="menu" style={!burgerpress ? { width:0 } : {}}>
         <div className={burgerpress ? "figures" : "null"}>
           <div className={burgerpress ? "king" : "null"} onClick={() => { setfwc("K") }} style={fwc == 'K' && burgerpress ? { border: "3px solid white" } : {}} />
           <div className={burgerpress ? "queen" : "null"} onClick={() => { setfwc("Q") }} style={fwc == 'Q' && burgerpress ? { border: "3px solid white" } : {}} />
