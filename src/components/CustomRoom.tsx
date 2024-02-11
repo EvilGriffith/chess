@@ -238,6 +238,9 @@ export const CustomRoom = () => {
     const clearboard = newboard.createBoard()
     setstartgame(false)
     setboard(clearboard)
+    setfwc("")
+    setcolor("")
+    setmmove([[]])
   }
   return (
     <div className="background">

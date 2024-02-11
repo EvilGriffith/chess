@@ -17,7 +17,6 @@ function Room() {
   const [attacks, setattacks] = useState<number[][]>([[]])
   const [game, setgame] = useState<any>({})
   const [currentplayer, setcurrentplayer] = useState<string>("")
-  const [docid, setdocid] = useState<string>("white")
   const [chek,setchek] = useState(false)
   const docref = doc(db,"game",state)
   const col = collection(db, "game")
@@ -40,7 +39,6 @@ function Room() {
               console.log(copygame)
               setcurrentplayer("white")
               setchek(true)
-              setdocid(state)
               bool = true
               await updateDoc(docref,copygame)
               break
@@ -50,14 +48,12 @@ function Room() {
               copygame.player2 = 'black'
               setcurrentplayer("black")
               setchek(true)
-              setdocid(state)
               bool = true
               await updateDoc(docref,copygame)
               break
             }
             else{
               setchek(true)
-              setdocid(state)
               break
               
             }
@@ -156,7 +152,6 @@ function Room() {
                     copyboard[j].figure = figure
                     setmmove([[]])
                     const copygame = game
-                    const docref = doc(db, 'game', docid)
                     if (currentplayer == "white") {
                       copygame.board = copyboard
                       copygame.colormove = "black"
@@ -258,7 +253,6 @@ function Room() {
             copyboard[j].figure = figure
             setmmove([[]])
             const copygame = game
-            const docref = doc(db, 'game', docid)
 
             if (currentplayer == "white") {
               copygame.board = copyboard
