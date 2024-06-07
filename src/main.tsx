@@ -6,13 +6,13 @@ import { App } from './App.tsx';
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyByl2XP3lQG_yFtFsnYuIW4nOr1NrGgmUk",
-  authDomain: "chess-a7b72.firebaseapp.com",
-  projectId: "chess-a7b72",
-  storageBucket: "chess-a7b72.appspot.com",
-  messagingSenderId: "389872725642",
-  appId: "1:389872725642:web:9c17f480f7ab76be2cc773",
-  measurementId: "G-WV4RT2Y3GL"
+  apiKey: "AIzaSyCJtDnM-e3rhMd7cwYz3RIqlOZcJ5RldiI",
+  authDomain: "chess12e.firebaseapp.com",
+  projectId: "chess12e",
+  storageBucket: "chess12e.appspot.com",
+  messagingSenderId: "803635440870",
+  appId: "1:803635440870:web:2fd8cab1ac213df7049f27",
+  measurementId: "G-91C38N2S7P"
 };
 
 export const app = initializeApp(firebaseConfig);
