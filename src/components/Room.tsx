@@ -197,10 +197,10 @@ function Room() {
             }
           }
         }
-        setfigureselect(null)
+        
       }
     }
-
+  setfigureselect(null)
   }
   const newmove = () => {
     setfigureselect(null)
